@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Box } from '@mui/material';
 import NewsLetter from '../NewsLetter/NewsLetter';
 import FooterMain from '../FooterMain/FooterMain';
+import ToTop from '../ToTop/ToTop';
 
 const Footer = () => {
     return (
@@ -9,6 +10,9 @@ const Footer = () => {
             backgroundColor: '#062265',
             color: '#fff'
         }}>
+            {/* Click to Scroll top button */}
+            <ToTop/>
+
             <Container fixed>
                 <NewsLetter />
                 <FooterMain />

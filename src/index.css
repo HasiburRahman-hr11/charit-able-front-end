@@ -122,6 +122,31 @@ input[type=number] {
   left: -50px;
 }
 
+
+/* To Top Button */
+.to_top {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: -500px;
+  right: 40px;
+  font-size: 32px;
+  background-color: var(--primary-color);
+  color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: all 0.4s ease;
+  z-index: 10;
+}
+
+.to_top.active {
+  bottom: 60px;
+}
+
 /* Login and Registration Page */
 .login__page,
 .register__page {
@@ -251,10 +276,12 @@ input[type=number] {
   font-weight: 600;
   cursor: pointer;
 }
-.admin__add_thumbnail{
+
+.admin__add_thumbnail {
   margin-right: 15px;
 }
-.admin__remove_thumbnail{
+
+.admin__remove_thumbnail {
   background-color: #ddd;
 }
 
@@ -280,5 +307,18 @@ input[type=number] {
 
   .case__slider .slick-arrow.slick-prev {
     left: calc(50% - 40px);
+  }
+}
+
+@media only screen and (max-width:575px) {
+  .to_top {
+    right: 30px;
+    width: 35px;
+    height: 35px;
+    font-size: 25px;
+  }
+
+  .to_top.active {
+    bottom: 30px;
   }
 }

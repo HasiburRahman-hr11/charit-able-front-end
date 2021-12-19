@@ -29,6 +29,8 @@ import EditUser from './Admin/EditUser';
 import { getAllCases } from './redux/cases/apiCalls';
 import { getAllBlogs } from './redux/blogs/apiCalls';
 
+import PageScroll from './components/PageScroll/PageScroll';
+
 
 
 
@@ -46,6 +48,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <ToastContainer />
+      <PageScroll/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />

@@ -78,7 +78,7 @@ const SingleBlog = () => {
                             }
                         }}>
                             <aside>
-                                <h2>Sidebar</h2>
+                                <h2 className='title'>Sidebar Coming Soon</h2>
                             </aside>
                         </Grid>
                     </Grid>

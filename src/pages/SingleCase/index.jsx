@@ -90,7 +90,7 @@ const SingleCase = () => {
                                 xs: 'none'
                             }
                         }}>
-                            <aside><h2>Sidebar</h2></aside>
+                            <aside>   <h2 className='title'>Sidebar Coming Soon</h2></aside>
                         </Grid>
                     </Grid>
                 </Container>
