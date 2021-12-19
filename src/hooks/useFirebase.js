@@ -55,13 +55,16 @@ export const useFirebase = () => {
                     ...userInfo,
                     displayName: name,
                     email: email
-                })
+                });
 
                 const userData = {
                     displayName: name,
                     email: email,
                 }
                 setAdmin(userData);
+
+                // Save User To Database
+                saveUserToDb(userData);
 
                 navigate('/')
                 successNotify('Registration Successful');
@@ -98,11 +101,12 @@ export const useFirebase = () => {
                     displayName: user.displayName,
                     email: user.email,
                     photo: user.photoURL
-                })
-
-                navigate('/profile')
-
+                });
+                navigate('/profile');
                 successNotify('Successfully Logged In');
+
+                // Save User To Database
+                saveUserToDb(user);
 
                 setError('');
                 setLoading(false);
@@ -129,7 +133,9 @@ export const useFirebase = () => {
                     displayName: user.displayName,
                     email: user.email,
                     photo: user.photoURL
-                })
+                });
+                // Save User To Database
+                saveUserToDb(user);
 
                 setError('');
                 setLoading(false);
@@ -152,7 +158,9 @@ export const useFirebase = () => {
                     displayName: user.displayName,
                     email: user.email,
                     photo: user.photoURL
-                })
+                });
+                // Save User To Database
+                saveUserToDb(user);
 
                 setError('');
                 setLoading(false);
@@ -175,7 +183,9 @@ export const useFirebase = () => {
                     displayName: user.displayName,
                     email: user.email,
                     photo: user.photoURL
-                })
+                });
+                // Save User To Database
+                saveUserToDb(user);
 
                 setError('');
                 setLoading(false);
@@ -216,9 +226,8 @@ export const useFirebase = () => {
                         setUserInfo({ ...userInfo, token: idToken });
                         setAdmin(user, idToken);
                     })
-                    
-                // Save User To Database
-                saveUserToDb(user);
+
+
                 setLoading(false);
             } else {
                 setLoading(false);
