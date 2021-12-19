@@ -10,6 +10,7 @@ import visaImg from '../../assets/images/payment-1.png';
 import masterImg from '../../assets/images/payment-2.png';
 import skrillImg from '../../assets/images/payment-3.png';
 import payPalImg from '../../assets/images/payment-4.png';
+import Loading from '../Loading/Loading';
 
 const styles = {
     title: {
@@ -53,14 +54,14 @@ const styles = {
 
 const DonationForm = () => {
 
-    const { user } = useSelector(state => state.auth);
+    const { user, isFetching: fetchingUser } = useSelector(state => state.auth);
     const { isFetching } = useSelector(state => state.donations);
 
 
     const [formData, setFormData] = useState({
         userInformation: {
-            firstName: user?.displayName.split(' ')[0] || '',
-            lastName: user?.displayName.split(' ')[1] || '',
+            firstName: user?.displayName?.split(' ')[0] || '',
+            lastName: user?.displayName?.split(' ')[1] || '',
             email: user?.email || '',
             address: '',
             message: ''
@@ -83,6 +84,10 @@ const DonationForm = () => {
         e.preventDefault();
 
         addNewDonation(dispatch, formData, navigate)
+    }
+
+    if(fetchingUser){
+        return <Loading/>
     }
     return (
         <form className="donation__form" style={styles.form} onSubmit={handleSubmit}>
