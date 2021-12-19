@@ -44,7 +44,7 @@ const BlogCard = ({ blog }) => {
 
             <Typography variant="h2" component="h2" sx={styles.title}>
                 <Link to={`/blogs/${blog._id}`}>
-                    {blog.title}
+                    {blog?.title?.substr(0 , 30) + '...'}
                 </Link>
             </Typography>
 

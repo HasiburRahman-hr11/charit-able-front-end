@@ -60,14 +60,16 @@ const SingleBlog = () => {
                 <Container fixed>
                     <Grid container spacing={5}>
                         <Grid item md={8} xs={12}>
-                            {blog.thumbnail && (
-                                <img src={`data:image/png;base64,${convertToBase64(blog.thumbnail.data)}`} alt={blog.title} />
-                            )}
-                            <Typography variant="h2" component="h2" sx={styles.title}>
-                                {blog?.title}
-                            </Typography>
+                            <article>
+                                {blog.thumbnail && (
+                                    <img src={`data:image/png;base64,${convertToBase64(blog.thumbnail.data)}`} alt={blog.title} />
+                                )}
+                                <Typography variant="h2" component="h2" sx={styles.title}>
+                                    {blog?.title}
+                                </Typography>
 
-                            <div dangerouslySetInnerHTML={{ __html: blog.description }}></div>
+                                <div dangerouslySetInnerHTML={{ __html: blog.description }}></div>
+                            </article>
                         </Grid>
                         <Grid item md={4} xs={12} sx={{
                             display: {
@@ -75,7 +77,9 @@ const SingleBlog = () => {
                                 xs: 'none'
                             }
                         }}>
-                            <h2>Sidebar</h2>
+                            <aside>
+                                <h2>Sidebar</h2>
+                            </aside>
                         </Grid>
                     </Grid>
                 </Container>

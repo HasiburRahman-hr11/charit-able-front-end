@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, Container, Grid, Typography } from '@mui/material';
 import DashboardHeader from '../../components/DashboardHeader/DashboardHeader';
@@ -6,7 +6,7 @@ import DashboardHeader from '../../components/DashboardHeader/DashboardHeader';
 import DashboardCard from '../../components/DashboardCard/DashboardCard';
 import AdminRoute from '../../utils/AdminRoute';
 import Loading from '../../components/Loading/Loading';
-import { deleteBlog, getAllBlogs } from '../../redux/blogs/apiCalls';
+import { deleteBlog } from '../../redux/blogs/apiCalls';
 
 const AdminBlogs = () => {
 
@@ -19,10 +19,6 @@ const AdminBlogs = () => {
             deleteBlog(dispatch, id);
         }
     }
-
-    useEffect(() => {
-        getAllBlogs(dispatch);
-    }, [dispatch]);
 
     if (isFetching) {
         return <Loading />

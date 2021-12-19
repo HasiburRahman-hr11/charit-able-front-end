@@ -35,12 +35,15 @@ const CaseCard = ({ data }) => {
     return (
         <Box component="div" sx={styles.card}>
             {data?.thumbnail && (
-                <img src={`data:image/png;base64,${convertToBase64(data.thumbnail.data)}`} alt={data.title} />
+                <img src={`data:image/png;base64,${convertToBase64(data.thumbnail.data)}`} alt={data.title} style={{
+                    maxHeight: '230px',
+                    objectFit: 'cover'
+                }} />
             )}
 
             <Typography variant="h2" component="h2" sx={styles.title}>
                 <Link to={`/cases/${data._id}`}>
-                    {data.title}
+                    {data.title.substr(0, 30) + '...'}
                 </Link>
             </Typography>
             <Box component="ul" sx={{
@@ -58,10 +61,10 @@ const CaseCard = ({ data }) => {
                 </Box>
                 <Box component="div" sx={styles.btnList}>
                     <Link to="/donate" style={{
-                            ...styles.caseBtn,
-                            backgroundImage: 'linear-gradient(90deg,#00a7d5,#27cdca)',
-                            color: '#fff'
-                        }}>
+                        ...styles.caseBtn,
+                        backgroundImage: 'linear-gradient(90deg,#00a7d5,#27cdca)',
+                        color: '#fff'
+                    }}>
                         Donate Now
                     </Link>
                 </Box>

@@ -9,7 +9,7 @@ export const addNewDonation = async (dispatch, formData, navigate) => {
         const { data } = await axios.post('https://charit-able-api.herokuapp.com/donations/add', formData);
         dispatch(addNewDonationSuccess(data));
         successNotify('Donation received successfully');
-        navigate(`/`);
+        navigate(`/cases`);
     } catch (error) {
         console.log(error);
         dispatch(addNewDonationFailed(error));

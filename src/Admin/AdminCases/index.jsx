@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, Container, Grid, Typography } from '@mui/material';
 
 import DashboardHeader from '../../components/DashboardHeader/DashboardHeader';
 import DashboardCard from '../../components/DashboardCard/DashboardCard';
 import AdminRoute from '../../utils/AdminRoute';
-import { deleteCase, getAllCases } from '../../redux/cases/apiCalls';
+import { deleteCase } from '../../redux/cases/apiCalls';
 import Loading from '../../components/Loading/Loading';
 
 const AdminCases = () => {
@@ -19,10 +19,6 @@ const AdminCases = () => {
             deleteCase(dispatch, id);
         }
     }
-
-    useEffect(() => {
-        getAllCases(dispatch);
-    }, [dispatch]);
 
     if (isFetching) {
         return <Loading />

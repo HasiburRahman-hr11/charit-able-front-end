@@ -147,10 +147,11 @@ const EditBlog = () => {
                                     <label htmlFor="thumbnail" className="admin__add_thumbnail">
                                         <span><MdAddPhotoAlternate /></span> {thumbnailPreview || base64Thumb ? 'Change' : 'Thumbnail'}
                                     </label>
-                                    {thumbnailPreview && (
+                                    {(thumbnailPreview || base64Thumb) && (
                                         <button type="button" className="admin__remove_thumbnail" onClick={() => {
                                             setThumbnail('');
                                             setThumbnailPreview('');
+                                            setBase64Thumb('');
                                         }}>Remove</button>
                                     )}
                                 </Box>

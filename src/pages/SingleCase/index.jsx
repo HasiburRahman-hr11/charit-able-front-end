@@ -68,19 +68,21 @@ const SingleCase = () => {
                 <Container fixed>
                     <Grid container spacing={5}>
                         <Grid item md={8} xs={12}>
-                            <Box component="div">
-                                {singleCase.thumbnail && (
-                                    <img src={`data:image/png;base64,${convertToBase64(singleCase.thumbnail.data)}`} alt={singleCase.title} />
-                                )}
-                                <Link to="/donate" style={styles.donateBtn}>
-                                    Donate Now
-                                </Link>
-                            </Box>
-                            <Typography variant="h2" component="h2" sx={styles.title}>
-                                {singleCase?.title}
-                            </Typography>
+                            <article>
+                                <Box component="div">
+                                    {singleCase.thumbnail && (
+                                        <img src={`data:image/png;base64,${convertToBase64(singleCase.thumbnail.data)}`} alt={singleCase.title} />
+                                    )}
+                                    <Link to="/donate" style={styles.donateBtn}>
+                                        Donate Now
+                                    </Link>
+                                </Box>
+                                <Typography variant="h2" component="h2" sx={styles.title}>
+                                    {singleCase?.title}
+                                </Typography>
 
-                            <div dangerouslySetInnerHTML={{ __html: singleCase.description }}></div>
+                                <div dangerouslySetInnerHTML={{ __html: singleCase.description }}></div>
+                            </article>
                         </Grid>
                         <Grid item md={4} xs={12} sx={{
                             display: {
@@ -88,7 +90,7 @@ const SingleCase = () => {
                                 xs: 'none'
                             }
                         }}>
-                            <h2>Sidebar</h2>
+                            <aside><h2>Sidebar</h2></aside>
                         </Grid>
                     </Grid>
                 </Container>

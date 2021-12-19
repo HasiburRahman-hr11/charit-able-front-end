@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Grid, Box, Typography } from '@mui/material';
+import { useSelector } from 'react-redux';
+import { Grid, Box, Typography, CircularProgress } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { addNewDonation } from '../../redux/donations/apiCalls';
 
+
+import visaImg from '../../assets/images/payment-1.png';
+import masterImg from '../../assets/images/payment-2.png';
+import skrillImg from '../../assets/images/payment-3.png';
+import payPalImg from '../../assets/images/payment-4.png';
 
 const styles = {
     title: {
@@ -46,11 +52,16 @@ const styles = {
 }
 
 const DonationForm = () => {
+
+    const { user } = useSelector(state => state.auth);
+    const { isFetching } = useSelector(state => state.donations);
+
+
     const [formData, setFormData] = useState({
         userInformation: {
-            firstName: '',
-            lastName: '',
-            email: '',
+            firstName: user?.displayName.split(' ')[0] || '',
+            lastName: user?.displayName.split(' ')[1] || '',
+            email: user?.email || '',
             address: '',
             message: ''
         },
@@ -66,6 +77,7 @@ const DonationForm = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -202,17 +214,17 @@ const DonationForm = () => {
                 }}>
                     <span style={{ ...styles.cardImgWrapper, borderColor: formData.paymentInformation.cardType === 'Visa' ? '#08CD7F' : '#B7FCE1' }}
                         onClick={() => setFormData({ ...formData, paymentInformation: { ...formData.paymentInformation, cardType: 'Visa' } })}>
-                        <img src="/images/payment-1.png" alt="Visa Card" />
+                        <img src={visaImg} alt="Visa Card" />
                     </span>
                     <span style={{ ...styles.cardImgWrapper, borderColor: formData.paymentInformation.cardType === 'Master Card' ? '#08CD7F' : '#B7FCE1' }}
                         onClick={() => setFormData({ ...formData, paymentInformation: { ...formData.paymentInformation, cardType: 'Master Card' } })}>
-                        <img src="/images/payment-2.png" alt="Master Card" />
+                        <img src={masterImg} alt="Master Card" />
                     </span>
                     <span style={{ ...styles.cardImgWrapper, borderColor: formData.paymentInformation.cardType === 'Skrill' ? '#08CD7F' : '#B7FCE1' }} onClick={() => setFormData({ ...formData, paymentInformation: { ...formData.paymentInformation, cardType: 'Skrill' } })}>
-                        <img src="/images/payment-3.png" alt="Skrill" />
+                        <img src={skrillImg} alt="Skrill" />
                     </span>
                     <span style={{ ...styles.cardImgWrapper, borderColor: formData.paymentInformation.cardType === 'PayPal' ? '#08CD7F' : '#B7FCE1' }} onClick={() => setFormData({ ...formData, paymentInformation: { ...formData.paymentInformation, cardType: 'PayPal' } })}>
-                        <img src="/images/payment-4.png" alt="PayPal" />
+                        <img src={payPalImg} alt="PayPal" />
                     </span>
                 </Box>
 
@@ -300,14 +312,13 @@ const DonationForm = () => {
                     </Grid>
                 </div>
             </Box>
-
-            <button
-                type="submit"
-                className='btn__primary'
-                style={{
-                    marginTop: '40px'
-                }}
-            >Donate Now</button>
+            <button type="submit" className="btn__primary" style={{ height: '50px', width: '180px', marginTop: '40px' }}>
+                {isFetching ? <CircularProgress sx={{
+                    color: '#fff',
+                    width: '25px !important',
+                    height: '25px !important'
+                }} /> : 'Donate Now'}
+            </button>
         </form>
     );
 };
