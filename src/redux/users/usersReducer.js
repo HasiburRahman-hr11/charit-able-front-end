@@ -37,11 +37,9 @@ const usersReducer = (state = initialState, action) => {
                 isFetching: true
             }
         case UPDATE_USER_SUCCESS:
-            const prevUsers = state.users.filter(user => user._id !== action.payload._id);
-            const updatedUsers = [action.payload, ...prevUsers];
-            const sortedUsers = updatedUsers.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
             return {
-                users: sortedUsers,
+                users: [action.payload, ...state.users.filter(data => data._id !== action.payload._id)],
                 error: null,
                 isFetching: false
             }

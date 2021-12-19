@@ -61,7 +61,7 @@ const donationReducer = (state = initialState, action) => {
             }
         case UPDATE_DONATION_SUCCESS:
             return {
-                donations: [action.payload, ...state.donations],
+                donations: [action.payload, ...state.donations.filter(data => data._id !== action.payload._id)],
                 error: null,
                 isFetching: false
             }

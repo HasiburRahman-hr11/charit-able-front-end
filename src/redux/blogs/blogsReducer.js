@@ -61,7 +61,7 @@ const blogsReducer = (state = initialState, action) => {
             }
         case UPDATE_BLOG_SUCCESS:
             return {
-                blogs: [action.payload, ...state.blogs],
+                blogs: [action.payload, ...state.blogs.filter(data => data._id !== action.payload._id)],
                 error: null,
                 isFetching: false
             }

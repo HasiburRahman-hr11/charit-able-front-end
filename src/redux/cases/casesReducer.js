@@ -61,15 +61,8 @@ const casesReducer = (state = initialState, action) => {
                 isFetching: true
             }
         case UPDATE_CASE_SUCCESS:
-            // let updatedCases = state.cases;
-            // if(state.cases.length > 0){
-            //     const prevCases = state.cases.filter(data => data._id !== action.payload._id);
-            //     updatedCases = [action.payload, ...prevCases]
-            // }
-            
-            // const sortedCases = updatedCases.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
             return {
-                cases: [action.payload, ...state.cases],
+                cases: [action.payload, ...state.cases.filter(data => data._id !== action.payload._id)],
                 error: null,
                 isFetching: false
             }
