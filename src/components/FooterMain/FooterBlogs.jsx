@@ -2,26 +2,29 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Box, Typography } from '@mui/material';
+import convertToBase64 from '../../utils/convertToBase64';
 
 const FooterBlogs = () => {
     const { blogs } = useSelector(state => state.blogs)
     return (
         <Box component="div">
 
-            {blogs.slice(0, 2).map(blog => (
-                <Box component="div" key={blog._id} sx={{
+            {blogs.slice(0, 2).map((blog,ind) => (
+                <Box component="div" key={blog._id+ind} sx={{
                     display: 'flex',
                     marginBottom: '20px',
                     '&:last-child': {
                         marginBottom: '0'
                     }
                 }}>
-                    <img src={blog.thumbnail} alt={blog.title} style={{
-                        width: '70px',
-                        height: '70px',
-                        objectFit: 'cover',
-                        marginRight: '10px'
-                    }} />
+                    {blog?.thumbnail && (
+                        <img src={`data:image/png;base64,${convertToBase64(blog.thumbnail.data)}`} alt={blog.title} style={{
+                            width: '70px',
+                            height: '70px',
+                            objectFit: 'cover',
+                            marginRight: '10px'
+                        }} />
+                    )}
                     <Box component="div">
                         <Link to={`/blogs/${blog._id}`}>
                             <Typography variant="h5" component="h5" sx={{

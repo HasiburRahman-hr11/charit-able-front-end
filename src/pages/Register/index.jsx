@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Link , useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { Box, CircularProgress, Container, Typography } from '@mui/material';
 
@@ -11,9 +10,7 @@ import { errorNotify } from '../../utils/toastify';
 const Register = () => {
 
     // Firebase 
-    const { signUpWithEmailPassword, loading } = useFirebase();
-    // Redux User State
-    const user = useSelector(state => state.auth.user)
+    const { signUpWithEmailPassword, progress } = useFirebase();
 
     const [formData, setFormData] = useState({
         name: '',
@@ -27,19 +24,12 @@ const Register = () => {
 
     const submitHandler = (e) => {
         e.preventDefault();
-        if(formData.password === formData.confirmPassword){
-            signUpWithEmailPassword(formData.name, formData.email, formData.password , navigate);
-        }else{
-            errorNotify('Password is not matching!')
+        if (formData.password === formData.confirmPassword) {
+            signUpWithEmailPassword(formData.name, formData.email, formData.password, navigate);
+        } else {
+            errorNotify('Password is not matching!');
         }
     }
-
-    useEffect(() => {
-        if (user.email || user.displayName) {
-            navigate('/')
-        }
-    }, [user,navigate]);
-
     return (
         <>
             <Box component="div" className='register__page'>
@@ -94,7 +84,7 @@ const Register = () => {
                                 />
                             </div>
                             <button type='submit' className="auth__submit">
-                                {loading ? <CircularProgress sx={{
+                                {progress ? <CircularProgress sx={{
                                     color: '#fff',
                                     width: '30px !important',
                                     height: '30px !important'
@@ -117,7 +107,7 @@ const Register = () => {
                                 marginTop: '20px'
                             }}>
                                 Already have an account?
-                                <Link href="/login" style={{
+                                <Link to="/login" style={{
                                     color: '#0E88EE',
                                     marginLeft: '5px'
                                 }}>Sign In.</Link>

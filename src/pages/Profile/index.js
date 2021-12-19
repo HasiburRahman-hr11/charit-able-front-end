@@ -8,6 +8,8 @@ import Footer from '../../components/Footer/Footer';
 // Redux
 import { useSelector } from 'react-redux';
 
+import profileImg from '../../assets/images/avatar.png';
+
 const Profile = () => {
 
     // Redux
@@ -35,7 +37,7 @@ const Profile = () => {
                                     sm: 'left'
                                 }
                             }}>
-                                <img src={user?.photo ? user.photo : '/images/avatar.png'} alt="User" style={{
+                                <img src={user?.photo ? user.photo : profileImg} alt="User" style={{
                                     maxWidth: '150px',
                                     borderRadius: '50%'
                                 }} />

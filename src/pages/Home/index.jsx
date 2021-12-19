@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import HeroSection from '../../components/HeroSection/HeroSection';
 import MissionSection from '../../components/MissionSection/MissionSection';
@@ -14,23 +14,12 @@ import Loading from '../../components/Loading/Loading';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 
-import { getAllCases } from '../../redux/cases/apiCalls';
-import { getAllBlogs } from '../../redux/blogs/apiCalls';
-
 const Home = () => {
 
-    const { isFetching, cases } = useSelector(state => state.cases);
-    const { isFetching: blogFetching, blogs } = useSelector(state => state.blogs);
+    const { cases, isFetching: fetchingCases } = useSelector(state => state.cases);
+    const { blogs, isFetching: fetchingBlogs } = useSelector(state => state.blogs);
 
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        getAllCases(dispatch);
-        getAllBlogs(dispatch);
-    }, [dispatch]);
-
-
-    if (isFetching || blogFetching) {
+    if (fetchingCases || fetchingBlogs) {
         return <Loading />
     }
 

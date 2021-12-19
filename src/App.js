@@ -1,5 +1,8 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
 
 import Home from './pages/Home';
 import About from './pages/About';
@@ -23,11 +26,26 @@ import EditCase from './Admin/EditCase';
 import Donations from './Admin/Donations';
 import Users from './Admin/Users';
 import EditUser from './Admin/EditUser';
+import { getAllCases } from './redux/cases/apiCalls';
+import { getAllBlogs } from './redux/blogs/apiCalls';
+
+
 
 
 const App = () => {
+
+  const { user } = useSelector(state => state.auth);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    getAllCases(dispatch);
+    getAllBlogs(dispatch);
+  }, [dispatch]);
+
   return (
     <BrowserRouter>
+      <ToastContainer />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -38,8 +56,10 @@ const App = () => {
         <Route path="/blogs/:blogId" element={<SingleBlog />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/donate" element={<Donate />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+
+        <Route path="/login" element={user?.displayName || user?.email ? <Navigate to="/" /> : <Login />} />
+        <Route path="/register" element={user?.displayName || user?.email ? <Navigate to="/" /> : <Register />} />
+
 
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/dashboard/blogs" element={<AdminBlogs />} />

@@ -35,6 +35,7 @@ export const useFirebase = () => {
     });
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(true);
+    const [progress, setProgress] = useState(false);
 
     const dispatch = useDispatch();
 
@@ -46,6 +47,7 @@ export const useFirebase = () => {
     // Sign Up with email and password
     const signUpWithEmailPassword = (name, email, password, navigate) => {
         setLoading(true);
+        setProgress(true);
         createUserWithEmailAndPassword(auth, email, password)
             .then(() => {
                 // save user info
@@ -55,13 +57,10 @@ export const useFirebase = () => {
                     email: email
                 })
 
-                // Save User To Database
                 const userData = {
                     displayName: name,
                     email: email,
                 }
-
-                saveUserToDb(userData);
                 setAdmin(userData);
 
                 navigate('/')
@@ -76,17 +75,20 @@ export const useFirebase = () => {
 
                 setError('');
                 setLoading(false);
+                setProgress(false);
             })
             .catch((error) => {
                 setError(error.message);
                 errorNotify(error.message);
                 setLoading(false);
+                setProgress(false);
             });
     };
 
     // Sign In with email and password
     const signInWithEmailPassword = (email, password, navigate) => {
         setLoading(true);
+        setProgress(true);
         signInWithEmailAndPassword(auth, email, password)
             .then((result) => {
                 // Signed in 
@@ -98,19 +100,19 @@ export const useFirebase = () => {
                     photo: user.photoURL
                 })
 
-                // Save User To Database
-                saveUserToDb(user);
                 navigate('/profile')
 
                 successNotify('Successfully Logged In');
 
                 setError('');
                 setLoading(false);
+                setProgress(false);
             })
             .catch((error) => {
                 setError(error.message);
                 setLoading(false);
                 errorNotify(error.message);
+                setProgress(false);
             });
     }
 
@@ -128,9 +130,6 @@ export const useFirebase = () => {
                     email: user.email,
                     photo: user.photoURL
                 })
-
-                // Save User To Database
-                saveUserToDb(user);
 
                 setError('');
                 setLoading(false);
@@ -155,9 +154,6 @@ export const useFirebase = () => {
                     photo: user.photoURL
                 })
 
-                // Save User To Database
-                saveUserToDb(user);
-
                 setError('');
                 setLoading(false);
             }).catch((error) => {
@@ -180,9 +176,6 @@ export const useFirebase = () => {
                     email: user.email,
                     photo: user.photoURL
                 })
-
-                // Save User To Database
-                saveUserToDb(user);
 
                 setError('');
                 setLoading(false);
@@ -209,36 +202,33 @@ export const useFirebase = () => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
             if (user) {
-                // console.log(user);
+
                 setUserInfo({
                     ...userInfo,
                     displayName: user.displayName,
                     email: user.email,
                     photo: user.photoURL
-                })
+                });
 
                 // Set AccessToken
-                setIdToken(user);
-
+                getIdToken(user)
+                    .then((idToken) => {
+                        setUserInfo({ ...userInfo, token: idToken });
+                        setAdmin(user, idToken);
+                    })
+                    
+                // Save User To Database
+                saveUserToDb(user);
                 setLoading(false);
             } else {
                 setLoading(false);
-                dispatch(getUserFailed(error.message))
+                dispatch(getUserFailed('No user found'))
             }
         });
         return () => unsubscribe();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-
-    // Set the user access token  
-    const setIdToken = (user) => {
-        getIdToken(user)
-            .then((idToken) => {
-                setUserInfo({ ...userInfo, token: idToken });
-
-                setAdmin(user, idToken);
-            })
-    }
 
     const setAdmin = async (user, idToken = '') => {
         const userData = {
@@ -262,7 +252,7 @@ export const useFirebase = () => {
     // Save User to DataBase
     const saveUserToDb = async (user) => {
         try {
-            const { data } = await axios.post('https://charit-able-api.herokuapp.com/users/create', { name: user.displayName, email: user.email });
+            await axios.post('https://charit-able-api.herokuapp.com/users/create', { name: user.displayName, email: user.email });
 
         } catch (error) {
             console.log(error);
@@ -270,10 +260,10 @@ export const useFirebase = () => {
     }
 
     return {
+        userInfo,
         loading,
-        setLoading,
+        progress,
         error,
-        setError,
         signUpWithEmailPassword,
         signInWithEmailPassword,
         signInWithGoogle,
@@ -282,3 +272,4 @@ export const useFirebase = () => {
         signOutController
     }
 }
+

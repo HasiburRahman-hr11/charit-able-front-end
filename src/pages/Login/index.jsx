@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Link , useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { Box, Container, Typography, CircularProgress } from '@mui/material';
 import { useFirebase } from '../../hooks/useFirebase';
@@ -10,10 +8,7 @@ import SignInMethods from '../../components/SignInMethods/SignInMethods';
 const Login = () => {
 
     // Firebase functions
-    const { signInWithEmailPassword, loading } = useFirebase();
-
-    // Redux User State
-    const user = useSelector(state => state.auth.user)
+    const { signInWithEmailPassword, progress } = useFirebase();
 
     const [formData, setFormData] = useState({
         email: '',
@@ -25,14 +20,8 @@ const Login = () => {
     const submitHandler = (e) => {
         e.preventDefault();
         console.log(formData);
-        signInWithEmailPassword(formData.email, formData.password , navigate);
+        signInWithEmailPassword(formData.email, formData.password, navigate);
     }
-
-    useEffect(() => {
-        if (user.email || user.displayName) {
-            navigate('/')
-        }
-    }, [user,navigate])
 
     return (
         <>
@@ -68,7 +57,7 @@ const Login = () => {
                                 />
                             </div>
                             <button type='submit' className="auth__submit">
-                                {loading ? <CircularProgress sx={{
+                                {progress ? <CircularProgress sx={{
                                     color: '#fff',
                                     width: '30px !important',
                                     height: '30px !important'
@@ -91,7 +80,7 @@ const Login = () => {
                                 marginTop: '20px'
                             }}>
                                 Don't have an account?
-                                <Link href="/register" style={{
+                                <Link to="/register" style={{
                                     color: '#0E88EE',
                                     marginLeft: '5px'
                                 }}>Sign Up.</Link>
