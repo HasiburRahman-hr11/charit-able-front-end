@@ -62,7 +62,9 @@ const AddCase = () => {
 
         formData.append('title', title);
         formData.append('description', description);
-        formData.append('thumbnail', thumbnail);
+        if (thumbnail) {
+            formData.append('thumbnail', thumbnail);
+        }
 
         addNewCase(dispatch, formData, navigate);
     }

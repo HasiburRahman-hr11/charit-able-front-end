@@ -58,7 +58,9 @@ const AddBlog = () => {
 
         formData.append('title', title);
         formData.append('description', description);
-        formData.append('thumbnail', thumbnail);
+        if (thumbnail) {
+            formData.append('thumbnail', thumbnail);
+        }
         formData.append('author', user?.displayName || 'Admin');
 
         addNewBlog(dispatch, formData, navigate);

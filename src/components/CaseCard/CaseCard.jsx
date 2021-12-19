@@ -35,10 +35,7 @@ const CaseCard = ({ data }) => {
     return (
         <Box component="div" sx={styles.card}>
             {data?.thumbnail && (
-                <img src={`data:image/png;base64,${convertToBase64(data.thumbnail.data)}`} alt={data.title} style={{
-                    maxHeight: '230px',
-                    objectFit: 'cover'
-                }} />
+                <img src={`data:image/png;base64,${convertToBase64(data.thumbnail.data)}`} alt={data.title} />
             )}
 
             <Typography variant="h2" component="h2" sx={styles.title}>
