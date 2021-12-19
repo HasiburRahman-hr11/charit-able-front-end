@@ -44,7 +44,7 @@ const AdminCases = () => {
                             <Grid item xs={12} sm={6} md={4} key={item._id}>
                                 <DashboardCard
                                     data={item}
-                                    link='/dashboard/cases/edit'
+                                    link="/dashboard/cases/edit"
                                     deleteHandler={handleDeleteCase}
                                 />
                             </Grid>

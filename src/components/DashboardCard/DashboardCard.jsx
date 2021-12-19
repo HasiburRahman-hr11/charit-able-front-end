@@ -39,7 +39,7 @@ const DashboardCard = ({ data, link, deleteHandler }) => {
                 textAlign: 'center',
                 padding: '20px 0'
             }}>
-                <Link to={`cases/${data._id}`}>
+                <Link to={`${link}/${data._id}`}>
                     {data.title.substr(0, 40) + '...'}
                 </Link>
 
