@@ -10,6 +10,7 @@ import RichEditor from "../../components/RichEditor/RichEditor";
 import AdminRoute from "../../utils/AdminRoute";
 import { addNewBlog } from "../../redux/blogs/apiCalls";
 
+import placeholder from '../../assets/images/thumbnail.png';
 
 const styles = {
     formWrapper: {
@@ -98,7 +99,7 @@ const AddBlog = () => {
                                 marginBottom: '30px'
                             }}>
                                 <div>
-                                    <img src={thumbnailPreview ? thumbnailPreview : '/images/thumbnail.png'} alt="Thumbnail" className="admin__thumb_preview" />
+                                    <img src={thumbnailPreview ? thumbnailPreview : placeholder} alt="Thumbnail" className="admin__thumb_preview" />
                                 </div>
                                 <Box component="div" sx={{
                                     display: 'flex',

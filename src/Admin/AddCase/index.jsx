@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, Container, Typography , CircularProgress } from '@mui/material';
+import { Box, Container, Typography, CircularProgress } from '@mui/material';
 
 import { MdAddPhotoAlternate } from 'react-icons/md'
 
@@ -9,7 +9,9 @@ import DashboardHeader from '../../components/DashboardHeader/DashboardHeader';
 import RichEditor from "../../components/RichEditor/RichEditor";
 import AdminRoute from "../../utils/AdminRoute";
 
-import { addNewCase } from '../../redux/cases/apiCalls'
+import { addNewCase } from '../../redux/cases/apiCalls';
+
+import placeholder from '../../assets/images/thumbnail.png';
 
 const styles = {
     formWrapper: {
@@ -62,7 +64,7 @@ const AddCase = () => {
         formData.append('description', description);
         formData.append('thumbnail', thumbnail);
 
-        addNewCase(dispatch, formData , navigate);
+        addNewCase(dispatch, formData, navigate);
     }
 
     return (
@@ -101,7 +103,7 @@ const AddCase = () => {
                                 marginBottom: '30px'
                             }}>
                                 <div>
-                                    <img src={thumbnailPreview ? thumbnailPreview : '/images/thumbnail.png'} alt="Thumbnail" className="admin__thumb_preview" />
+                                    <img src={thumbnailPreview ? thumbnailPreview : placeholder} alt="Thumbnail" className="admin__thumb_preview" />
                                 </div>
                                 <Box component="div" sx={{
                                     display: 'flex',

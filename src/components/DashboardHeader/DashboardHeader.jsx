@@ -10,6 +10,8 @@ import { FaKhanda, FaBloggerB, FaUserAlt, FaDonate } from 'react-icons/fa';
 import { MdExitToApp } from 'react-icons/md'
 import { useFirebase } from '../../hooks/useFirebase';
 
+import logo from '../../assets/images/logo.png';
+
 const DashboardHeader = () => {
     const [menuOpen, setMenuOpen] = useState(false);
 
@@ -21,8 +23,8 @@ const DashboardHeader = () => {
             <Container fixed>
                 <Grid container>
                     <Grid item xs={8} md={6}>
-                        <Link to="/">
-                            <img src="/images/logo.png" alt="Logo" className={styles.logo} />
+                        <Link to="/" style={{display:'block', maxWidth:'170px'}}>
+                            <img src={logo} alt="Logo" className={styles.logo} />
                         </Link>
                     </Grid>
                     <Grid item xs={4} md={6}>
@@ -45,7 +47,7 @@ const DashboardHeader = () => {
                         </Link>
                     </li>
                     <li onClick={() => setMenuOpen(false)}>
-                        <Link to="/dashboard/add-case">
+                        <Link to="/dashboard/cases/add">
                             <span className={styles.list__icon}><AiFillFileAdd /></span> Add Case
                         </Link>
                     </li>
@@ -60,7 +62,7 @@ const DashboardHeader = () => {
                         </Link>
                     </li>
                     <li onClick={() => setMenuOpen(false)}>
-                        <Link to="/dashboard/add-blog">
+                        <Link to="/dashboard/blogs/add">
                             <span className={styles.list__icon}><AiFillFileAdd /></span> Add Blog
                         </Link>
                     </li>

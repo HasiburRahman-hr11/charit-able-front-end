@@ -25,7 +25,7 @@ const Header = () => {
                     alignItems: 'center'
                 }}>
                     <Grid item xs={8} md={3}>
-                        <Link to='/' style={{ position: "relative", width: "100%", display: 'block', maxWidth: '170px', paddingBottom: '20%' }}>
+                        <Link to='/' style={{ width: "100%", display: 'block', maxWidth: '170px' }}>
                             <img
                                 src={logo}
                                 alt="Logo"

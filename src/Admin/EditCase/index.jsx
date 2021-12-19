@@ -13,6 +13,8 @@ import Loading from "../../components/Loading/Loading";
 import convertToBase64 from "../../utils/convertToBase64";
 import { updateCase } from "../../redux/cases/apiCalls";
 
+import placeholder from '../../assets/images/thumbnail.png';
+
 
 const styles = {
     formWrapper: {
@@ -134,7 +136,7 @@ const EditCase = () => {
                                     {base64Thumb ? (
                                         <img src={`data:image/png;base64,${base64Thumb}`} alt="Thumbnail" className="admin__thumb_preview" />
                                     ) : (
-                                        <img src={thumbnailPreview ? thumbnailPreview : '/images/thumbnail.png'} alt="Thumbnail" className="admin__thumb_preview" />
+                                        <img src={thumbnailPreview ? thumbnailPreview : placeholder} alt="Thumbnail" className="admin__thumb_preview" />
                                     )}
 
                                 </div>
